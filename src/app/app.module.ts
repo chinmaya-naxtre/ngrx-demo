@@ -13,6 +13,9 @@ import { environment } from 'src/environments/environment';
 import { appReducer } from './store/app.state';
 import { AddPostComponent } from './posts/add-post/add-post.component';
 import { EditPostComponent } from './posts/edit-post/edit-post.component';
+import { EffectsModule} from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +24,17 @@ import { EditPostComponent } from './posts/edit-post/edit-post.component';
     HeaderComponent,
     PostsListComponent,
     AddPostComponent,
-    EditPostComponent
+    EditPostComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    StoreModule.forRoot({}),
+    HttpClientModule,
+    StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production, // Restrict extension to log-only mode
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
